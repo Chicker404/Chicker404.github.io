@@ -64,6 +64,53 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-在hexo博客中插入图片" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/21/%E5%9C%A8hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/" class="article-date">
+  <time datetime="2020-02-20T16:35:24.000Z" itemprop="datePublished">2020-02-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/21/%E5%9C%A8hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/">在hexo博客中插入图片</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="step-1"><a href="#step-1" class="headerlink" title="step 1"></a>step 1</h2><p>在blog/_config.yml中将post_asset_folder设置为true</p>
+<h2 id="step-2"><a href="#step-2" class="headerlink" title="step 2"></a>step 2</h2><p>在blog目录下执行:</p>
+<pre><code>npm install hexo-asset-image --save</code></pre>
+<p>安装了cnpm可以:</p>
+<pre><code>cnpm install hexo-asset-image --save</code></pre>
+
+<h2 id="step-3"><a href="#step-3" class="headerlink" title="step 3"></a>step 3</h2><p>安装之后在 hexo n 之后会出现一个和md博客同名的文件夹, 将需要上传的图片放到里面</p>
+<h2 id="step-4"><a href="#step-4" class="headerlink" title="step 4"></a>step 4</h2><p>因为图片文件夹名和博客名相同, 在想要插入图片的位置使用:</p>
+<pre><code>![图片标题](博客名/图片名.后缀)</code></pre>
+<p>就可以插入图片了</p>
+<p>参考链接:<br><a href="https://www.jianshu.com/p/950f8f13a36c" target="_blank" rel="noopener">https://www.jianshu.com/p/950f8f13a36c</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/21/%E5%9C%A8hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/" data-id="ck6uzn1dn0001zgvy463ghjz2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/20/hello-world/" class="article-date">
@@ -103,7 +150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/20/hello-world/" data-id="ck6tlf4ps00018svy5e9g0491" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/02/20/hello-world/" data-id="ck6uzn1db0000zgvy1qrm4nzq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -142,6 +189,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/02/21/%E5%9C%A8hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/">在hexo博客中插入图片</a>
+          </li>
         
           <li>
             <a href="/2020/02/20/hello-world/">Hello World</a>
