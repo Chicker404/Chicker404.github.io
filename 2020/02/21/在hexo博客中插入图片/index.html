@@ -7,15 +7,15 @@
   
   <title>在hexo博客中插入图片 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="step 1在blog&#x2F;_config.yml中将post_asset_folder设置为true step 2在blog目录下执行: npm install hexo-asset-image --save 安装了cnpm可以: cnpm install hexo-asset-image --save  step 3安装之后在 hexo n 之后会出现一个和md博客同名的文件夹，将需要上传的图片放">
+  <meta name="description" content="step 1在blog&#x2F;_config.yml中将post_asset_folder设置为true step 2在blog目录下执行： npm install hexo-asset-image --save 安装了cnpm可以： cnpm install hexo-asset-image --save  step 3安装之后在 hexo n 之后会出现一个和md博客同名的文件夹，将需要上传的图片放">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在hexo博客中插入图片">
 <meta property="og:url" content="http://yoursite.com/2020/02/21/%E5%9C%A8hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="step 1在blog&#x2F;_config.yml中将post_asset_folder设置为true step 2在blog目录下执行: npm install hexo-asset-image --save 安装了cnpm可以: cnpm install hexo-asset-image --save  step 3安装之后在 hexo n 之后会出现一个和md博客同名的文件夹，将需要上传的图片放">
+<meta property="og:description" content="step 1在blog&#x2F;_config.yml中将post_asset_folder设置为true step 2在blog目录下执行： npm install hexo-asset-image --save 安装了cnpm可以： cnpm install hexo-asset-image --save  step 3安装之后在 hexo n 之后会出现一个和md博客同名的文件夹，将需要上传的图片放">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-20T16:35:24.000Z">
-<meta property="article:modified_time" content="2020-02-20T18:12:52.353Z">
+<meta property="article:modified_time" content="2020-02-21T06:02:05.709Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -89,21 +89,38 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="step-1"><a href="#step-1" class="headerlink" title="step 1"></a>step 1</h2><p>在blog/_config.yml中将post_asset_folder设置为true</p>
-<h2 id="step-2"><a href="#step-2" class="headerlink" title="step 2"></a>step 2</h2><p>在blog目录下执行:</p>
+<h2 id="step-2"><a href="#step-2" class="headerlink" title="step 2"></a>step 2</h2><p>在blog目录下执行：</p>
 <pre><code>npm install hexo-asset-image --save</code></pre>
-<p>安装了cnpm可以:</p>
+<p>安装了cnpm可以：</p>
 <pre><code>cnpm install hexo-asset-image --save</code></pre>
 
 <h2 id="step-3"><a href="#step-3" class="headerlink" title="step 3"></a>step 3</h2><p>安装之后在 hexo n 之后会出现一个和md博客同名的文件夹，将需要上传的图片放到里面</p>
-<h2 id="step-4"><a href="#step-4" class="headerlink" title="step 4"></a>step 4</h2><p>因为图片文件夹名和博客名相同，在想要插入图片的位置使用:</p>
+<h2 id="step-4"><a href="#step-4" class="headerlink" title="step 4"></a>step 4</h2><p>因为图片文件夹名和博客名相同，在想要插入图片的位置使用：</p>
 <pre><code>![图片标题](博客名/图片名.后缀)</code></pre>
 <p>就可以插入图片了</p>
-<h2 id="上述步骤后无法显示图片的话，请参考https-blog-csdn-net-xjm850552586-article-details-84101345"><a href="#上述步骤后无法显示图片的话，请参考https-blog-csdn-net-xjm850552586-article-details-84101345" class="headerlink" title="上述步骤后无法显示图片的话，请参考https://blog.csdn.net/xjm850552586/article/details/84101345"></a>上述步骤后无法显示图片的话，请参考<a href="https://blog.csdn.net/xjm850552586/article/details/84101345" target="_blank" rel="noopener">https://blog.csdn.net/xjm850552586/article/details/84101345</a></h2><p>参考链接:<br><a href="https://www.jianshu.com/p/950f8f13a36c" target="_blank" rel="noopener">https://www.jianshu.com/p/950f8f13a36c</a></p>
+<h2 id="图片无法显示"><a href="#图片无法显示" class="headerlink" title="图片无法显示"></a>图片无法显示</h2><p>上述步骤后无法显示图片，是因为hexo3版本对插件支持有问题，hexo-asset-image插件在处理data.permalink链接时出现路径错误，把年月去掉了，导致最后生成的路径为%d/xxx/xxx。<br>需要对其做兼容处理，通过判断当前版本是否等于3的版本做不同的路径分割。</p>
+<p><strong>打开<a href="mailto:_hexo-asset-image@1.0.0">_hexo-asset-image@1.0.0</a>@hexo-asset-image/index.js</strong><br>第8行处加入hexo版本：</p>
+<pre><code>var version = String(hexo.version).split('.');</code></pre>
+<p>修改data.permalink的处理：</p>
+<pre><code>var link = data.permalink;  
+if(version.length > 0 && Number(version[0]) == 3) 
+    var beginPos = getPosition(link, '/', 1) + 1; 
+else 
+    var beginPos = getPosition(link, '/', 3) + 1;</code></pre>
+
+<p><strong>也可以直接安装修改过的插件：</strong></p>
+<pre><code>npm install https://github.com/7ym0n/hexo-asset-image --sa</code></pre>
+<p>安装了cnpm：</p>
+<pre><code>cnpm install https://github.com/7ym0n/hexo-asset-image --sa</code></pre>
+
+
+<p><strong>cnpm是淘宝提供的镜像，可以使用cnpm命令行工具代替默认的npm</strong></p>
+<p>参考链接:<br><a href="https://www.jianshu.com/p/950f8f13a36c" target="_blank" rel="noopener">https://www.jianshu.com/p/950f8f13a36c</a><br><a href="https://www.jianshu.com/p/3db6a61d3782" target="_blank" rel="noopener">https://www.jianshu.com/p/3db6a61d3782</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/21/%E5%9C%A8hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/" data-id="ck6v2f2q900013kvy0mvv8gic" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/02/21/%E5%9C%A8hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/" data-id="ck6vrp2zu00001ovy7u8cgrnw" class="article-share-link">Share</a>
       
       
     </footer>
